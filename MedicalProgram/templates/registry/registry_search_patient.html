@@ -1,0 +1,59 @@
+{% block main %}
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Пошук пацієнта</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+         
+          </div>
+
+        </div>
+	</div>
+	<div class="search">
+		<form action="{% url 'registry:search_patient' %}" method="POST" class="row">
+			{% csrf_token %}
+
+			<div class="col-md-10">
+				<input type="text" name="patient_name" class="form-control" placeholder="П.І.П"> 
+			</div>
+
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-info btn-block">Шукати</button>
+			</div>
+
+		</form>
+
+		<br>
+		<div class="dierections">			
+			<table class="table table-bordered">
+			  <thead class="table-dark">
+			    <tr>
+			      <th scope="col">Номер</th>
+			      <th scope="col">Ім'я</th>
+
+
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for patient in patients %}
+				    <tr>
+				      <th scope="row">{{ patient.id }}</th>
+				      <td>
+				      	<strong>
+				      		<a href="{% url 'registry:confim_patient_data' patient.id %}">{{ patient.name }}</a>
+				      	</strong>
+				      </td>
+					
+				    </tr>
+				{% endfor %}
+			  </tbody>
+			</table>
+		</div>
+
+
+
+
+
+
+
+
+{% endblock %}

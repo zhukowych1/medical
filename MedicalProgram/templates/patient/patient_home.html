@@ -1,0 +1,67 @@
+{% block main %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Головна</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+          
+          </div>
+
+        </div>
+      </div>
+	<div class="a">
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+				<div class="card bg-success">
+					<div class="card-header">
+						<h2>Наступні відвідини</h2>
+					</div>
+					<div class="card-body">
+						{% if visiting %}
+							<h1 class="font-weight-normal">{{ earliest_visiting.docotor.rank }} | {{ earliest_visiting.docotor.name }}</h1>
+						{% else %}
+							<h1 class="font-weight-normal">Зараз немає відвідування</h1>
+						{% endif %}
+
+					</div>
+				</div>						
+			</div>
+			<div class="col-md-6">
+				
+			</div>			
+		</div>
+	</div>
+
+	<div class="patients">
+
+
+		<h1 class="h2">Запланлвані відвідини</h1>
+
+		<table class="table table-bordered">
+		  <thead class="table-dark">
+		    <tr>
+		      <th scope="col">Номер</th>
+		      <th scope="col">Лікар</th>
+		      <th scope="col">Дата</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+				{% for visiting in all_visitings %}
+					<tr>
+						<th scope="row">{{ visiting.id }}</th>
+						<td>{{ visiting.docotor.name }}</td>
+						<td>{{ visiting.date|date:"H:i" }}</td>
+					</tr>
+
+
+
+				{% endfor %}
+		  </tbody>
+		</table>
+
+	</div>
+
+
+
+
+
+{% endblock %}

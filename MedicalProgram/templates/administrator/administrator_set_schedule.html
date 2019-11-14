@@ -1,0 +1,66 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Створити графік лікаря {{ employee.name }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+
+        </div>
+
+	
+    </div>
+    </div>	
+    <form action="{% url 'administrator:set_schedule' employee.login %}" method="POST">
+    	{% csrf_token %} 
+    	<label for="dia">Початок дії графіка</label>
+		<input type="text" class="form-control" name="date"/>
+    	<label for="time_for">Час одного прийому(хвилин)</label>
+		<input type="text" class="form-control" name="time_for"/>		
+		<br>	
+
+
+			{% for d in days %}
+				<div class="day-box  row">
+					<div class="col-md-2">
+						<h3>{{ d.0 }}</h3>
+					</div>
+					<div class="col-md-10">
+
+						<div class="input-group">
+				  			<div class="input-group-prepend">
+				    				<span class="input-group-text" id="basic-addon1">З</span>
+				  			</div>
+							<select name="{{ d.1 }}" id="" class="form-control" aria-describeby="basic-addon1">
+								{% for h in hours %}
+									<option value="{{ h }}">{{ h }}</option>
+
+								{% endfor %}
+							</select>				
+
+				  			<div class="input-group-prepend">
+				    				<span class="input-group-text" id="basic-addon2">До</span>
+				  			</div>			
+
+							<select name="{{ d.2 }}" id="to" class="form-control" aria-describedby="basic-addon2">
+
+								{% for h in hours %}
+									<option value="{{ h }}">{{ h }}</option>
+
+								{% endfor %}
+							</select>				
+						</div>
+					</div>
+				</div>
+				<br>
+			{% endfor %}
+			<button type="submit" class="btn btn-info">Створити</button>
+
+    </form>
+
+
+
+
+
+
+
+
+{% endblock %}

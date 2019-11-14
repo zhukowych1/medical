@@ -1,0 +1,38 @@
+{% extends 'base_login.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+  <form class="form-signin" method="POST" action="{% url 'login:register' %}">
+    
+    {% csrf_token %}  
+
+  	<img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+  	<h1 class="h3 mb-3 font-weight-normal" ALIGN='center'>Реєстрація</h1>
+  	<label for="name">П.І.П.</label>
+  	<input type="text" id="name" class="form-control" placeholder="П.І.П." required autofocus name="name">
+    <label for="inputPassword">Пароль</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required name="password">
+
+    <label for="inputPassword2">Пароль(повторно)</label>
+    <input type="password" id="inputPassword2" class="form-control" placeholder="Пароль" required name="password2">   
+    <label for="">
+      Логін
+      <strong>{{ username }}</strong>
+    </label>
+    <br>
+    {% if messages %}
+      {% for messange in messages %}
+      <div class="alert alert-danger">
+        {{ messange }}
+      </div>
+      {% endfor %}
+	  {% endif %}
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Зареєструватись</button>
+    <br>
+    <a href="{% url 'login:login' %}">Ввійти</a>
+    <a href="{% url 'index:home' %}">На головну</a>
+  	<p class="mt-5 mb-3 text-muted" ALIGN="center">&copy; 2019-2019</p>
+  </form>
+{% endblock %}

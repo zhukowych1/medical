@@ -1,0 +1,30 @@
+{% block menu %}
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'patient:home' %}">
+	        <span data-feather="home"></span>
+	            Головна <span class="sr-only">(current)</span>
+	    </a>
+	</li>
+	<li class="nav-item">
+			<a class="nav-link active" href="{% url 'patient:my_card' %}">
+				<span data-feather="home"></span>
+					Моя картка <span class="sr-only">(current)</span>
+			</a>
+		</li>
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'patient:reserve' %}">
+	        <span data-feather="home"></span>
+	            Записатись на прийом <span class="sr-only">(current)</span>
+	    </a>
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'patient:vote' %}">
+	        <span data-feather="home"></span>
+	           	Оцінка сімейного лікаря<span class="sr-only">(current)</span>
+	    </a>
+	</li>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% block main %}
+	     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Додати запис у картку {{ patient.name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+         
+          </div>
+
+        </div>
+      </div>
+      <form action="{% url 'doctor:add_card_record' patient.id %}" method="POST">
+      	{% csrf_token %}
+      	<div class="form-goup">
+      		<label for="">Дата</label>
+      		<strong>{{ date_now }}</strong>
+      	</div>
+
+          <div class="text_">
+          	<div class="form-goup">
+          		<label for="">Текст запису</label>
+    			    <textarea class="form-control" name="content" rows="20" required></textarea> 
+
+          		
+          	</div>
+          	<div class="form-goup">
+          		<label for="">Заключення</label>
+    			<input list="conclusion" type="text" autocomplete="off" class='form-control' name="conclusion"/>
+    			<datalist id="conclusion" >
+					{% for word in words %}
+						<option value="{{ word.word }}">{{ word.word }}</option>
+
+					{% endfor %}
+				</datalist>
+          		
+          	</div>
+          </div>
+          
+      	<br>
+      	<button class='btn btn-info' type='submit'>Додати запис</button>
+      </form>
+
+
+
+{% endblock %}

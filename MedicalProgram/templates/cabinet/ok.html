@@ -1,0 +1,28 @@
+{% extends 'base_ok.html' %}
+
+
+{% block status_user %}
+
+	{{ user.first_name }} {{ user.last_name }}
+
+{% endblock %}
+{% block sidebar_menu %}
+
+	{% include menu_render %}
+
+{% endblock %}
+{% block m_sidebar_menu %}
+	{% include menu_render %}
+{% endblock %}
+{% block log_out %}
+	{% if user.is_authenticated %}
+		<a class="nav-link" href="{% url 'login:log_out' %}">Вийти</a>
+	{% else %}
+
+	{% endif %}
+
+{% endblock %}
+{% block content %}
+	{% include main_render %}
+
+{% endblock %}

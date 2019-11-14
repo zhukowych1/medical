@@ -1,0 +1,79 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Словник </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+          <a href="{% url 'administrator:add_word' %}" style="margin-right: 20px;">Додати слово</a>
+
+          <a href="{% url 'administrator:add_profession' %}">Додати професію</a>
+        </div>
+	
+    </div>
+    </div>	
+    <div class="search">
+      	
+		<form action="{% url 'administrator:vocabulary' %}" method="POST" class="">
+      {% csrf_token %}
+			<div class="input-group mb-3">
+		    	<input type="text" name="word" class="form-control" placeholder="Ввдіть слово">
+				<div class="input-group-append">
+					<button class="btn btn-primary" type="submit">Шукати</button>
+
+				</div>
+			</div>
+						
+		</form>      	
+				
+	      
+
+
+		
+    </div>
+
+	<div class="words">
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Номер</th>
+          <th scope="col">Слово</th>
+          <th scope="col">Тип слова</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+    		{% if words %}
+
+
+                    
+          {% for word in words %}
+            <tr>
+              <th scope="row">{{ word.id }}</th>
+              <td><a href="#"><strong>{{ word.word }}</strong></a></td>
+              <td><a href="#"><strong>{{ word.code }}</strong></a></td>
+
+            </tr>
+          {% endfor %}
+        {% endif %}
+        {% if professions %}
+          {% for proff in professions %}
+            <tr>
+              <th scope="row">{{ proff.id }}</th>
+              <td><a href="#"><strong>{{ proff.word }}</strong></a></td>
+              <td><a href="#"><strong>{{ proff.code }}</strong></a></td>
+
+            </tr>            
+          {% endfor %}
+        {% endif %}
+
+
+      </tbody>
+  </table>
+
+
+
+	</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% block main %}
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Мої картки</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+          
+          </div>
+        </div>
+      </div>
+	<form action="{% url 'doctor:my_cards'  %}" method="POST" class="row">
+		{% csrf_token %}
+		<div class="col-md-10">
+			<input type="text" class="form-control" placeholder="Ім'я пацієнта" name="patient_login" required value="{{ name }}" />
+		</div>
+
+
+
+		<div class="col-md-2">
+				<button type="submit" class="btn btn-info btn-block">Шукати</button>
+		</div>
+
+	</form>
+	<br>
+	<div class="doctor_cards_table">
+		<table class="table table-bordered">
+			  <thead class="table-dark">
+			    <tr>
+			      <th scope="col">Номер</th>
+			      <th scope="col">Ім'я</th>
+
+
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for patient in patients %}
+				    <tr>
+				      <th scope="row">{{ patient.id }}</th>
+				      <td>
+				      	<strong>
+				      		<a href="{% url 'doctor:card' patient.id %}">{{ patient.name }}</a>
+				      	</strong>
+				      </td>
+
+				
+				    </tr>
+				{% endfor %}
+			  </tbody>
+		</table>
+	</div>
+
+
+{% endblock %}

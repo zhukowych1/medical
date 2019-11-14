@@ -1,0 +1,54 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Редагувати інформацію лікаря {{ doctor.name }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+          
+        </div>
+	
+    </div>
+    </div>	
+	<form action="{% url 'administrator:edit_doctor' doctor.id %}" method="POST">
+		{% csrf_token %}  
+
+		<label for="pip">П.І.П.</label>
+		<input type="text" name="name" class="form-control" id="pip" placeholder="П.І.П." value="{{ doctor.name }}">
+		<br>
+		<label for="date">Дата народження</label>
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">День</span>
+			</div>
+			<input class="form-control" aria-describeby="basic-addon1" value="{{ doctor.date_birth|date:'d' }}" name="day"/>
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Місяць</span>
+			</div>
+			<input class="form-control" value="{{ doctor.date_birth|date:'m' }}" aria-describeby="basic-addon2" name="month" />	
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Рік</span>
+			</div>
+			<input class="form-control" aria-describeby="basic-addon3" value="{{ doctor.date_birth|date:'Y' }}" name="year"/>	
+
+
+
+
+
+		</div>
+		<label for="specialisation">Спеціальність</label>	
+		<select id="specialisation" name="spec" class="selectpicker form-control" data-live-search="true">
+	      {% for type in types %}
+			<option value="{{ type.word }}">{{ type.word }}</option>
+		  {% endfor %}
+	    </select>
+	    <br>
+		<a href="{% url 'administrator:edit_password' doctor.id %}"><strong>Змінити пароль</strong></a>
+		<br>
+		<div class="form group">
+		    <button type="submit" class="btn btn-info">Зберегти</button>
+	
+		</div>
+	</form>
+
+
+
+{% endblock %}

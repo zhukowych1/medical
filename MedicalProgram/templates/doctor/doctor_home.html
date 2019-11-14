@@ -1,0 +1,74 @@
+{% block main %}
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Головна</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+          
+          </div>
+
+        </div>
+      </div>
+	<div class="a">
+		<div class="row">
+			<div class="col-md-6 ">
+				<div class="card bg-success">
+					<div class="card-header">
+						<h2>Зараз приймаєте</h2>
+					</div>
+					<div class="card-body">
+						{% if visiting_now %}
+							{{ visiting_now.patient.name }}
+						{% else %}
+							<h3 class="font-weigt-normal">Зараз немає відвідування</h3>
+
+						{% endif %}
+					</div>
+				</div>						
+			</div>
+		
+		</div>
+	</div>
+	<div class="visitings_detail">
+		{% if visiting_now %}
+			<hr>
+			
+					<h3 for="">
+						З'явився на прийом:
+					</h3>
+					<button class="btn btn-primary" type="submit">Так</button>
+					<button class="btn btn-danger" type="submit">Ні</button><br><br>
+					{% if patient_now %}
+						<a href="{% url 'doctor:card' patient_now.id %}" class="btn btn-info">Редагувати картку пацієнта</a>	
+					{% endif %}	
+
+			<hr>
+		{% endif %}
+	</div>
+	<div class="patients">
+		<h1 class="h2">Прийоми на {{ date_now|date:"d.m.Y" }}</h1>
+
+		<table class="table table-bordered">
+		  <thead class="table-dark">
+		    <tr>
+		      <th scope="col">Номер</th>
+		      <th scope="col">Ім'я</th>
+		      <th scope="col">Година</th>
+		      <th scope="col">Чи є в лікарні</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+			{% for c in all_visitings %}
+				{% if c.date > now %}			  
+					<tr>
+					<th scope="row">{{ c.id }}</th>
+					<td>{{ c.patient.name }}</td>
+					<td>{{ c.date|date:"H:i" }}</td>
+					<td>{{ c.is_in }}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		  </tbody>
+		</table>
+	</div>
+	
+{% endblock %}

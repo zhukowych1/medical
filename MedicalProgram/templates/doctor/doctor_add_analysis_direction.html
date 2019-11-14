@@ -1,0 +1,63 @@
+{% block main %}
+  	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Додати направлення на аналізи {{ patient.name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+         
+          </div>
+
+        </div>
+	</div>
+	<form action="{% url 'doctor:add_analysis_direction' patient.id %}" method="POST" class="row">
+		{% csrf_token %}
+		<div class="col-md-5">
+			<select name="date1"  class="selectpicker form-control" data-live-search="true">
+				{% for date in dates %}
+					<option value="{{ date|date:'d.m.Y' }}">{{ date|date:'d.m.Y' }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="col-md-5">
+			<select name="date2" id="" class="selectpicker form-control" data-live-search="true">
+				{% for hour in hours %}
+					<option value="{{ hour }}">{{ hour }}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		<div class="col-md-2">
+			<button type="submit" class="btn btn-info btn-block">Створити</button>	
+		</div>
+
+	</form>
+		<br>
+		<div class="dierections">
+			<div class="row">
+			
+				{% if visitings %}
+					{% for visiting in visitings %}
+						{% if hours %}
+							<div class="col-md-2">
+								<div class="card">
+									<div class="card-body">
+										<a href="{% url 'doctor:set_analysis_direction' patient.id visiting.id %}" class="card-title">{{ visiting.date|date:"d.m.Y H:i" }}<br>{{ visiting.laborant.name }}</a>
+									</div>
+								</div>	
+								<br>						
+							</div>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<br>
+					<p color="red">Немає відвідувань у цей час</p>
+
+				{% endif %}
+			</div>
+		</div>
+
+
+
+
+
+
+{% endblock %}

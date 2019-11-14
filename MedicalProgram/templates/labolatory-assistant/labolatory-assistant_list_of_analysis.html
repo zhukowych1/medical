@@ -1,0 +1,34 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Внести результати аналізів пацієнта {{ analysis.patient.name }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+     
+        </div>
+	
+    </div>
+    </div>	
+	<div class="analysis">
+		<table class="table table-bordered">
+		  <thead class="table-dark">
+		    <tr>
+		      <th scope="col">Назва</th>
+
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{% for analysis_type in analysis_types %}
+			    <tr>
+		
+			      <td><a href="{% url 'labolatory-assistant:set_analys' analysis.id analysis_type %}">
+			      	<strong>{{ analysis_type }}</strong>
+			  	  </a></td>
+
+			    </tr>
+			{% endfor %}
+		  </tbody>
+		</table>
+	</div>    	
+
+
+{% endblock %}

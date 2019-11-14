@@ -1,0 +1,15 @@
+{% block menu %}
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'labolatory-assistant:home' %}">
+	        <span data-feather="home"></span>
+	            Головна <span class="sr-only">(current)</span>
+	    </a>
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'labolatory-assistant:set_analysis_results' %}">
+	        <span data-feather="home"></span>
+	            Внести аналізи<span class="sr-only">(current)</span>
+	    </a>
+	</li>
+
+{% endblock %}

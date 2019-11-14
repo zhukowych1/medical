@@ -1,0 +1,47 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	    <h1 class="h2">Додати аналіз {{ analysis_name }} | {{ count_of_rows }} рядків</h1>
+	    <div class="btn-toolbar mb-2 mb-md-0">
+	        <div class="btn-group mr-2">
+	     
+	        </div>
+		
+	    </div>
+    </div>	
+    <form action="{% url 'administrator:create_analysis_templates' analysis_name count_of_rows %}" method="POST" class="row">
+		{% csrf_token %}  
+    	<div class="col-md-2">
+    		<h3 class="font-weight-normal">Назва аналізу</h3>
+    	</div>
+    	<div class="col-md-10">
+			<input type="text" class="form-control" required value="{{ analysis_name }}" name="name">
+			<br>    			
+    	</div>    
+    	<div class="col-md-2">
+    		<h3 class="font-weight-normal">Код аналізу</h3>
+    	</div>
+    	<div class="col-md-10">
+			<input type="text" class="form-control" required name="code">
+			<br>    			
+    	</div>    		
+
+    	{% for i in rows %}
+    		<div class="col-md-2">
+    			<h3 class="font-weight-normal">{{ i }} - ша графа</h3>
+    		</div>
+    		<div class="col-md-10">
+				<input type="text" class="form-control" required name="{{ i }}">
+				<br>    			
+    		</div>
+
+
+    	{% endfor %}
+    	<button type="submit" class="btn btn-info">Зберегти</button>
+    </form>
+
+
+
+
+
+
+{% endblock %}

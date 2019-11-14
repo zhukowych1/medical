@@ -1,0 +1,61 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+       	<h1 class="h2">Додати себе, як сімейноголікаря</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+          
+        </div>
+
+        </div>
+    </div>
+    <div class="search">
+		<form action="{% url 'doctor:add_patient' %}" method="POST">
+			{% csrf_token %}
+			<div class="input-group mb-3">
+			    <input type="text" class="form-control" name="patient_name" placeholder="Ввдіть і'мя людини">
+				<div class="input-group-append">
+					<button class="btn btn-primary" type="submit">Шукати</button>
+
+				</div>
+			</div>
+							
+		</form> 
+	</div>	
+	<div class="patients">
+		{% if patients %}
+				<table class="table table-bordered">
+		              <thead class="table-dark">
+		                <tr>
+		                  <th scope="col">Номер</th>
+		                  <th scope="col">і'мя</th>
+		              
+		          
+		                </tr>
+		              </thead>
+		              <tbody>
+		                
+		                    {% for patient in patients %}
+		                        <tr>
+		                          <th scope="row">{{ patient.id }}</th>
+		                          <td><a href="{% url 'doctor:set_as_family_doctor' patient.id %}"><strong>{{ patient.name }}</strong></a></td>
+		                          
+		                        </tr>
+		                    {% endfor %}
+
+		              </tbody>
+		            </table>
+		{% else %}
+		    <p ALIGN="center">Немає людини у базі</p>
+		{% endif %}		
+		
+
+
+	</div>
+
+
+
+
+
+
+
+{% endblock %}

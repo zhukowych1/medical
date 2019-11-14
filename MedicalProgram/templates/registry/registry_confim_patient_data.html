@@ -1,0 +1,74 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Підтвердити інформацію користувача {{ patient.name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+          
+          </div>
+
+        </div>
+    </div>
+	<form action="{% url 'registry:confim_patient_data' patient.id %}" method="POST">
+		{% csrf_token %}  
+
+		<label for="name">П.І.П.</label>
+		<input type="text" name="name" class="form-control" id="pip" value="{{ patient.name }}" placeholder="П.І.П.">
+		<br>
+		<label for="date">Дата народження</label>
+		<div class="input-group">
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="basic-addon1">День</span>
+		</div>
+		<input class="form-control" required aria-describeby="basic-addon1" value="{{ patient.date_birth|date:'d' }}" name="day"/>
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="basic-addon1">Місяць</span>
+		</div>
+		<input class="form-control" required value="{{ patient.date_birth|date:'m' }}" aria-describeby="basic-addon2" name="month" />	
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="basic-addon1">Рік</span>
+		</div>
+		<input class="form-control" required aria-describeby="basic-addon3" value="{{ patient.date_birth|date:'Y' }}" name="year"/>	
+		<br>
+		</div>
+		<br>
+		<label for="">Номер телефону</label>
+		<input type="text" required class="form-control" name="phone_number">
+		<br>
+		<label for="">Адреса</label>
+		<input type="text" required class="form-control" name="addres">
+		<br>
+		<label for="family">Вмберіть сімейного лікаря</label>	
+		<select id="family" required name="family_doctor" class="form-control selectpicker" data-live-search="true">
+		  {% if doctors %}
+		  	{% for doctor in doctors %}
+	      		<option value="{{ doctor.login }}">{{ doctor.name }}</option>
+	      	{% endfor %}
+		  {% endif %}
+
+	    </select>
+		<div>
+			<br>
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-danger">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+
+		<button type="submit" class="btn btn-info">Створити</button>
+
+	</form>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

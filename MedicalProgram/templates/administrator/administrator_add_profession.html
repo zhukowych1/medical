@@ -1,0 +1,34 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Додати професію</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+     
+        </div>
+	
+    </div>
+    </div>	
+	<div class="add_word_block">
+		<form action="{% url 'administrator:add_profession' %}" method="POST">
+			{% csrf_token %}  
+			<label for="">Введіть професію</label>
+			<input type="text" class="form-control" name="profession1"/>
+			<label for="">Введіть професію (повторно)</label>
+			<input type="text" class="form-control" name="profession2"/>
+			<label for="">Код професії</label>
+			<input type="text" class="form-control" name='profession_code' />
+			<label for="">Тип</label>		
+			<select name="cast" id="" class='form-control'>
+				<option value="doctor">Лікар</option>
+				<option value="head-doctor">Головний лікар</option>
+				<option value="labolatory-assistant">Лаборант</option>
+				<option value="registry">Медичний реєстратор</option>
+			</select>	
+			<br>
+			<button type="submit" class="btn btn-info">Зберегри</button>
+		</form>
+
+	
+	</div>
+
+{% endblock %}

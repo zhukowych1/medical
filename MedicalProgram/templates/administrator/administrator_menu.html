@@ -1,0 +1,32 @@
+{% block menu %}
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'administrator:home' %}">
+	        <span data-feather="home"></span>
+	            Головна <span class="sr-only">(current)</span>
+	    </a>
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'administrator:add_docotor' %}">
+	        <span data-feather="home"></span>
+	            Додати співробітника <span class="sr-only">(current)</span>
+	    </a>
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'administrator:schedule' %}">
+	        <span data-feather="home"></span>
+	            Графіки <span class="sr-only">(current)</span>
+	    </a>
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'administrator:vocabulary' %}">
+	        <span data-feather="home"></span>
+	            Словник <span class="sr-only">(current)</span>
+	    </a>
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link active" href="{% url 'administrator:analysis_templates' %}">
+	        <span data-feather="home"></span>
+	            Шаблони аналізів <span class="sr-only">(current)</span>
+	    </a>
+	</li>
+{% endblock %}

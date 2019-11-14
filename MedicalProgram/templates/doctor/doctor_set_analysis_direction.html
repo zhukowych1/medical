@@ -1,0 +1,70 @@
+{% block main %}
+  	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Підтвердити направлення на аналізи {{ patient.name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+         
+          </div>
+
+        </div>
+	</div>
+	<div class="settings">
+		<div class="row">
+			<div class="col-md-10">
+				<select name="date1"  class="selectpicker form-control analys_select" data-live-search="true">
+					{% for template in temolates %}
+						<option value="{{ template.name }}">{{ template.name }}</option>
+					{% endfor %}
+				</select>	
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-info btn-block add">Додати</button>
+			</div>								
+
+	
+		</div>
+	
+		<br>
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">Назва аналізу</th>
+	      <th scope="col">Видалити</th>
+	    </tr>
+	  </thead>
+	  <tbody class="append_box">
+	    
+	  </tbody>
+	</table>
+	</div>
+	<div class="content">
+		<strong>Дата:
+			<p>
+				{{ visiting.date|date:"d.m.Y H:i" }}
+			</p>
+		</strong>
+	</div>
+	<form action="{% url 'doctor:set_analysis_direction' patient.id visiting.id %}" method="POST">
+		{% csrf_token %}
+		<input type="text" name="list" class="add_input" hidden="">
+		<button class="btn btn-info">Підтвердити</button>
+	</form>
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			$(".add").bind("click",function () {
+				var selecteted = $(".analys_select option:selected" ).text();
+				var addHTML = "<tr> <td class='t'><p>" + selecteted + "</p></td> <td> <button class='btn btn-danger delete'>Видалити </button></td></tr>";
+				$(".append_box").append(addHTML)
+				$(".add_input").val($(".add_input").val() + selecteted+"|")
+			});
+			$("body").on("click", ".delete", function(){
+			    
+			    $(this).parents("tr").remove();
+			    $(".add_input").val( $(".add_input").val().replace( $(this).parents("tr").find("p").text()+"|","" ) )
+			   
+			});
+
+		});
+	</script>
+
+{% endblock %}

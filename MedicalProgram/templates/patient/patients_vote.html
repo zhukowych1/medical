@@ -1,0 +1,111 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Оцінити свого сімейного лікаря</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+      
+      </div>
+
+    </div>
+    </div>
+    <br>	
+    <form action="{% url 'patient:vote' %}" method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-body">
+                  <h3 class="font-weight-normal vote_1_pointer_show" style="cursor: pointer;">1.Якість Обслуговування</h3>
+                  <h3 class="font-weight-normal vote_1_pointer_hide" style="cursor: pointer;">1.Якість Обслуговування</h3>
+                  <div class="vote_1_content">
+                        {% for i in balls %}
+                           {% if patient.vote == i %}
+                               <div class="radio">
+                                   <label><input type="radio" name="vote1" value="{{ i }}" checked>{{ i }}</label>
+                               </div>
+                           {% else %}
+                               <div class="radio">
+                                   <label><input type="radio" name="vote1" value="{{ i }}">{{ i }}</label>
+                               </div>            
+                           {% endif %}
+                   
+                       {% endfor %}
+    
+                   </div>
+            </div>   
+        </div>
+        <br>
+        <div class="card">
+                <div class="card-body">
+                      <h3 class="font-weight-normal vote_2_pointer_show" style="cursor: pointer;">2.Якість лікування</h3>
+                      <h3 class="font-weight-normal vote_2_pointer_hide" style="cursor: pointer;">2.Якість лікування</h3>
+                      <div class="vote_2_content">
+                            {% for i in balls %}
+                               {% if patient.vote == i %}
+                                   <div class="radio">
+                                       <label><input type="radio" name="vote2" value="{{ i }}" checked>{{ i }}</label>
+                                   </div>
+                               {% else %}
+                                   <div class="radio">
+                                       <label><input type="radio" name="vote2" value="{{ i }}">{{ i }}</label>
+                                   </div>            
+                               {% endif %}
+                       
+                           {% endfor %}
+        
+                       </div>
+                </div>   
+        </div>
+        <br>
+        {% if patient.can_vote %}
+            <button class="btn btn-info" type="submit">Проголосувати</button>
+        {% else %}
+            <div class="alert alert-danger">Ви вичерпали свій ліміт голосування</div>
+        {% endif %}
+    </form>
+
+
+        
+        
+
+
+
+
+<script type="text/javascript">
+
+    $( document ).ready(function() {
+        $(".vote_1_content").hide();
+        $('.vote_1_pointer_hide').hide();
+        $(".vote_1_pointer_show").on("click",function(){
+
+            $(".vote_1_content").show(600);
+            $('.vote_1_pointer_show').hide();            
+            $('.vote_1_pointer_hide').show();
+
+        });
+        $('.vote_1_pointer_hide').on("click",function(){
+            $(".vote_1_content").hide(600);
+            $('.vote_1_pointer_show').show();
+            $('.vote_1_pointer_hide').hide();         
+        });
+
+        $(".vote_2_content").hide();
+        $('.vote_2_pointer_hide').hide();
+        $(".vote_2_pointer_show").on("click",function(){
+
+            $(".vote_2_content").show(600);
+            $('.vote_2_pointer_show').hide();            
+            $('.vote_2_pointer_hide').show();
+
+        });
+        $('.vote_2_pointer_hide').on("click",function(){
+            $(".vote_2_content").hide(600);
+            $('.vote_2_pointer_show').show();
+            $('.vote_2_pointer_hide').hide();         
+        });
+    });
+
+</script>
+
+
+
+
+{% endblock %}

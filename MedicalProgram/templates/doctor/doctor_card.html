@@ -1,0 +1,110 @@
+{% block main %}
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Картка {{ patient.name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+          	<div class="dropdown show">
+			  <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			   	Додати
+			  </a>
+
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			    <a class="dropdown-item" href="{% url 'doctor:add_card_record' patient.id %}">Запис</a>
+			    <a class="dropdown-item" href="{% url 'doctor:add_card_direction' patient.id %}">Направлення</a>
+			    <a class="dropdown-item" href="{% url 'doctor:add_analysis_direction' patient.id %}">Направлення на аналізи</a>
+
+
+			  </div>
+			</div>
+          </div>
+
+        </div>
+      </div>
+     <div class="search">
+     	<form action="{% url 'doctor:card' patient.id %}" method="POST">
+      		{% csrf_token %}
+     		<div class="row">
+     			<div class="col-md-8">
+     				<input type="text" placeholder="ДД.ММ.РР" class="form-control" name="date" />
+
+					 </div>
+					 <div class="col-md-2">
+							<select class="selectpicker form-control" data-style="btn-primary" data-live-search="true" name="doctor_rank">
+								{% for type in types %}
+										<option value="{{ type.word }}">{{ type.word }}</option>
+								{% endfor %}
+							</select>						 
+					 </div>
+     			<div class="col-md-2">
+     				<button class="btn btn-info btn-block" type="submit">Шукати</button>
+     			</div>
+     		</div>
+
+     	</form>
+     	<br>
+     </div>
+	{% if carsd_all %}
+		{% for c in carsd_all %}
+			<div class="card">
+				<div class="card-header">
+					<h1 class="h2">{{ c.date|date:"d.m.Y H:i" }}</h1>
+
+				</div>
+				<div class="card_body" style="padding: 10px;" >
+					{% if c.content_type == 'analysis' %}
+								<h3 class="font-weight-nprmal">Результати аналізу {{ c.second_title }}</h3>
+								<table class="table">
+								  <thead>
+								    <tr>
+								      <th scope="col">Ключ</th>
+								      <th scope="col">Значення</th>
+
+								    </tr>
+								  </thead>
+								  <tbody>
+									{% for row in c.analysis_split %}
+									    <tr>
+									      <th scope="row">{{ row.0 }}</th>
+									      <td>{{ row.1 }}</td>
+
+									    </tr>
+									{% endfor %}
+								  </tbody>
+								</table>
+					
+						{% else %}
+							<div class="row">
+								<div class="col-md-2">
+									<strong>
+										Протокол
+									</strong>
+								</div>
+								<div class="col-md-10">
+									<p>{{ c.content }}</p>							
+								</div>
+								{% if c.conclusion %}
+									<div class="col-md-2">
+										<strong>
+											{{ c.second_title }}
+										</strong>
+									</div>
+									<div class="col-md-10">
+										<p>{{ c.conclusion }}</p>							
+									</div>	
+								{% endif %}													
+							</div>
+
+							
+						{% endif %}					
+					
+
+				</div>
+			</div>
+			<br>
+		{% endfor %}
+	{% else %}
+		<h1>В картці немає записів</h1>
+	{% endif %}
+
+		
+{% endblock %}

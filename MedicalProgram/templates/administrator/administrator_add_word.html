@@ -1,0 +1,27 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Додати слово</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+     
+        </div>
+	
+    </div>
+    </div>	
+	<div class="add_word_block">
+		<form action="{% url 'administrator:add_word' %}" method="POST">
+			{% csrf_token %}  
+			<label for="word1">Введіть слово</label>
+			<input type="text" class="form-control" name="word1"/>
+			<label for="word2">Введіть слово (повторно)</label>
+			<input type="text" class="form-control" name="word2"/>
+			<label for="word_type">Код Слова</label>
+			<input type="text" class="form-control" name='word_code' />
+			<br>
+			<button type="submit" class="btn btn-info">Зберегри</button>
+		</form>
+
+	
+	</div>
+
+{% endblock %}

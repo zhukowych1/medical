@@ -1,0 +1,83 @@
+{% block main %}
+	  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Додати направлення у картку {{ patient.name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+         
+          </div>
+
+        </div>
+	</div>
+	<div class="search">
+		<form action="{% url 'doctor:add_card_direction' patient.id %}" method="POST" class="row">
+			{% csrf_token %}
+
+			<div class="col-md-6">
+
+	            <select class="selectpicker form-control" data-style="btn-primary" data-live-search="true" name="doctor_rank">
+	                {% for type in types %}
+	                    <option value="{{ type.word }}">{{ type.word }}</option>
+	                {% endfor %}
+	            </select>
+
+   
+			</div>
+			<div class="col-md-2">
+				<select class="selectpicker form-control" name="date1" data-live-search="true" id="">
+					{% for date in dates %}
+						<option value="{{ date|date:'d.m.Y' }}">{{ date|date:'d.m.Y' }}</option>
+					{% endfor %}
+				</select>
+				
+
+			</div>
+			<div class="col-md-2">
+				<select class="selectpicker form-control" name="date2" data-live-search="true" id="">
+					{% for hour in hours %}
+						<option value="{{ hour }}">{{ hour }}</option>
+					{% endfor %}
+				</select>				
+			</div>
+			
+
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-info btn-block">Шукати</button>
+			</div>
+
+		</form>
+
+		<br>
+		<div class="dierections">
+			<div class="row">
+			
+				{% if visitings %}
+					{% for visiting in visitings %}
+						{% if now < visiting.date %}
+							<div class="col-md-2">
+								<div class="card">
+									<div class="card-body">
+										<a href="{% url 'doctor:set_patient_dierection' patient.id visiting.id %}" class="card-title">{{ visiting.date|date:"d.m.Y H:i" }}<br>{{ visiting.docotor.name }}</a>
+									</div>
+								</div>	
+								<br>						
+							</div>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<br>
+					<p color="red">Немає відвідувань у цей час</p>
+
+				{% endif %}
+			</div>
+		</div>
+
+
+
+
+
+
+	</div>
+
+
+
+{% endblock %}

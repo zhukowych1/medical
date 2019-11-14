@@ -1,0 +1,76 @@
+{% block main %}
+<form action="" method="POST">
+	{% csrf_token %}  
+	<h1 class='h2'>Додати співробітника</h1>
+	<label for="name">Прізвище</label>
+	<input type="text" name="last_name" class="form-control" placeholder="Прізвище">
+	<br>
+	<label for="name">Ім'я</label>
+	<input type="text" name="first_name" class="form-control" placeholder="Ім'я">
+	<br>
+	<label for="name">По батькові</label>
+	<input type="text" name="end_name" class="form-control"  placeholder="По батькові">
+	<br>	
+
+	<label for="inputPassword">Пароль</label>
+  	<input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required name="password">
+  	<br>
+	<label for="inputPassword2">Пароль(повторно)</label>
+  	<input type="password" id="inputPassword2" class="form-control" placeholder="Пароль" required name="password2">  	
+	<br>
+		<label for="date">Дата народження</label>
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">День</span>
+			</div>
+			<input class="form-control" aria-describeby="basic-addon1" value="{{ doctor.date_birth|date:'d' }}" name="day"/>
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Місяць</span>
+			</div>
+			<input class="form-control" value="{{ doctor.date_birth|date:'m' }}" aria-describeby="basic-addon2" name="month" />	
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Рік</span>
+			</div>
+			<input class="form-control" aria-describeby="basic-addon3" value="{{ doctor.date_birth|date:'Y' }}" name="year"/>	
+
+
+
+
+		<br>
+		</div>
+	<br>
+	<label for="specialisation">Спеціальність</label>	
+	<select id="specialisation" name="spec" class="form-control selectpicker" data-live-search="true">
+	  {% if ranks %}
+	  	{% for rank in ranks %}
+      		<option selected data-tokens="Травматолог">{{ rank.word }}</option>
+      	{% endfor %}
+	  {% endif %}
+
+	</select>
+	<br>
+	<div class="alerts">
+		<br>
+		{% if messages %}
+			{% for message in messages %}
+				
+				<div class="alert alert-danger">
+	
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+
+    <div class="button">
+    	<br>
+		<button type="submit" class="btn btn-info">Створити</button>    	
+    </div>
+
+
+</form>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% block main %}
+  	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Додати доступ на редагування картки пацієнта {{ patient.name }} лікарю {{ acces_doctror.name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+         
+          </div>
+
+        </div>
+	</div>
+	<form action="{% url 'doctor:add_aссes_to_card' patient.id acces_doctror.id %}" method="POST">
+		{% csrf_token %}
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">З</span>
+			</div>
+			<input type="text" name="date_start" aria-describeby="basic-addon1" class="form-control" placeholder="ДД.ММ.РРРР" />
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon2">До</span>
+			</div>
+			<input type="text" name="date_end" aria-describeby="basic-addon1" class="form-control" placeholder="ДД.ММ.РРРР"/>			
+
+		
+		</div>
+		<br>
+		<label for="">Причина</label>
+		<textarea name="conclusion" id="" class="form-control" rows="5"></textarea>
+		<br>
+		<button type="submit" class="btn btn-info">Додати</button>
+	</form>
+
+
+
+{% endblock %}

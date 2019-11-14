@@ -1,0 +1,86 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Головна</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+          
+        </div>
+
+    </div>
+    </div>
+    <br>
+    <div class="doctors">
+    <h1 class="h2">Список співробітників</h1>  
+    <form action="{% url 'administrator:home' %}" method="POST" class="row">
+
+      {% csrf_token %}
+      <div class="col-md-8">
+        <input type="text" class="form-control" placeholder="Ім'я лікаря" name="doctor_login"  />
+      </div>
+      <div class="col-md-2">
+            <select class="selectpicker form-control" data-style="btn-primary" data-live-search="true" name="doctor_rank">
+                {% for type in types %}
+                    <option value="{{ type.word }}">{{ type.word }}</option>
+                {% endfor %}
+            </select>
+
+      </div>
+
+
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-info btn-block">Шукати</button>
+      </div>
+      <br>  
+    </form>
+
+        <br>  
+
+            <table class="table table-bordered">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Номер</th>
+                  <th scope="col">Ім'я</th>
+                  <th scope="col">Спеціальність</th>  
+                </tr>
+              </thead>
+              <tbody>
+                {% if all_doctors %}
+                    {% for doctor in all_doctors %}
+                        <tr>
+                          <th scope="row">{{ doctor.id }}</th>
+                          <td><a href="{% url 'administrator:edit_doctor' doctor.id %}"><strong>{{ doctor.name }}</strong></a></td>
+                          <td>
+                            <strong>  
+                                {{ doctor.rank }}
+                            </strong>
+                          </td>
+
+
+                        </tr>
+                    {% endfor %}
+
+                {% endif %}
+                    {% for laborant in laborants %}
+                        <tr>
+                          <th scope="row">{{ laborant.id }}</th>
+                          <td><a href="{% url 'administrator:edit_doctor' laborant.id %}"><strong>{{ laborant.name }}</strong></a></td>
+                          <td>
+                            <strong>  
+                                Лаборант
+                            </strong>
+                          </td>
+
+
+                        </tr>
+
+                    {% endfor %}
+              </tbody>
+            </table>
+
+    </div>
+    
+
+
+
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	    <h1 class="h2">Шаблони Аналізів</h1>
+	    <div class="btn-toolbar mb-2 mb-md-0">
+	        <div class="btn-group mr-2">
+	     
+	        </div>
+		
+	    </div>
+    </div>	
+    <div class="create">
+	 	<form action="{% url 'administrator:analysis_templates' %}" method="POST" class="row">
+			{% csrf_token %}  
+	 		<div class="col-md-8">
+				<input type="text" class="form-control " required placeholder="Назва шаблону" name="name" />	 			
+	 		</div>
+	 		<div class="col-md-2">
+				<input type="text" class="form-control " required placeholder="Кількість рядків" name="rows" />	 			
+	 		</div>
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-info btn-block">Створити</button>				
+			</div>
+
+		</form>   	
+    </div>
+	<div class="analys">
+		<br>
+		<table class="table table-bordered">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Номер</th>
+                  <th scope="col">Код аналізу</th>
+                  <th scope="col">Шаблон</th>
+                  <th scope="col">Видалити</th>                  
+          
+                </tr>
+              </thead>
+              <tbody>
+                
+                    {% for analysi in analysis %}
+                        <tr>
+                          <th scope="row">{{ analysi.name }}</th>
+                          <td><a href="#"><strong>{{ analysi.code }}</strong></a></td>
+                          <td><a href="#"><strong>{{ analysi.template }}</strong></a></td>
+						  <td><a href="{% url 'administrator:delete_analysis_template' analysi.id %}" class="btn btn-danger"></a></td>
+                        </tr>
+                    {% endfor %}
+
+              </tbody>
+            </table>
+	
+
+
+	</div>
+
+
+
+
+
+{% endblock %}

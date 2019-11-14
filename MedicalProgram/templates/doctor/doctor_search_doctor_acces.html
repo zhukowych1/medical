@@ -1,0 +1,64 @@
+{% block main %}
+  	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Додати доступ на редагування картки пацієнта {{ patient.name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+         
+          </div>
+
+        </div>
+	</div>
+	<div class="search">
+		<form action="{% url 'doctor:search_doctor_acces' patient.id %}" method="POST" class="row">
+			{% csrf_token %}
+
+			<div class="col-md-10">
+				<select name="doctor_type" id="" class="selectpicker form-control" data-live-search="true">
+					{% for type in types %}
+						<option value="{{ type.word }}">{{ type.word }}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-info btn-block">Шукати</button>
+			</div>
+
+		</form>
+
+		<br>
+		<div class="dierections">			
+			<table class="table table-bordered">
+			  <thead class="table-dark">
+			    <tr>
+			      <th scope="col">Номер</th>
+			      <th scope="col">Ім'я</th>
+			      <th scope="col">Спеціалізація</th>
+
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for doctor in doctors %}
+				    <tr>
+				      <th scope="row">{{ doctor.id }}</th>
+				      <td>
+				      	<strong>
+				      		<a href="{% url 'doctor:add_aссes_to_card' patient.id doctor.id  %}">{{ doctor.name }}</a>
+				      	</strong>
+				      </td>
+				      <td>{{ doctor.rank }}</td>
+				
+				    </tr>
+				{% endfor %}
+			  </tbody>
+			</table>
+		</div>
+
+
+
+
+
+
+
+{% endblock %}

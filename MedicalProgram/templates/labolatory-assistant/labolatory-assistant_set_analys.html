@@ -1,0 +1,26 @@
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Внести результати аналізy {{ analysis_type }} пацієнта {{ analysis.patient.name }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+     
+        </div>
+	
+    </div>
+    </div>	
+	<form action="{% url 'labolatory-assistant:set_analys' analysis.id analysis_type %}" method="POST" class="row">
+		{% csrf_token %}
+		{% for field in fields %}
+			<div class="col-md-2">
+				<h3>{{ field }}</h3>
+			</div>
+			<div class="col-md-10">
+				<input type="text" class="form-control" name="{{ field }}" required>
+				<br>
+			</div>
+			<br>
+		{% endfor %}
+		<button type="submit" class="btn btn-info">Підтвердити</button>
+	</form>
+		
+{% endblock %}
