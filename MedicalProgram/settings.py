@@ -29,7 +29,7 @@ SECRET_KEY = 'uka+$%*@9-k9vd&4yha3pigxudde5(l6c73*0zyt$!z=+k$vhp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['18.223.126.190']
 
 
 # Application definition
