@@ -29,7 +29,7 @@ SECRET_KEY = 'uka+$%*@9-k9vd&4yha3pigxudde5(l6c73*0zyt$!z=+k$vhp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -82,8 +82,12 @@ WSGI_APPLICATION = 'MedicalProgram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':"medical",
+        'USER':'zhukowych',
+        'PASSWORD':'absurdH5',
+        'HOST':'localhost',
+        'PORT':'',
     }
 }
 
@@ -126,6 +130,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT,"static/")
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, "static")
 ]
