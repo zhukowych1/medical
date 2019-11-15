@@ -19,7 +19,7 @@ class Doctor(models.Model):
 		verbose_name_plural = 'Лікарі'
 
 class FamilyDoctorVotes(models.Model):
-	vote = models.FloatField(null=True)
+	vote = models.DoubleField(null=True)
 	doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE,null=True)
 
 class Patient(models.Model):
@@ -31,7 +31,7 @@ class Patient(models.Model):
 	address = models.TextField(null=True)
 	date_birth = models.DateTimeField(null=True)
 	vote = models.IntegerField(null=True)
-	can_vote = models.IntegerField(default=False)
+	can_vote = models.BooleanField(default=False)
 
 	class Meta:
 		verbose_name = 'Пацієнт'
